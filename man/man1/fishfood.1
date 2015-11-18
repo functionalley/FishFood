@@ -1,0 +1,170 @@
+.TH fishfood 1
+.SH NAME
+\fBfishfood\fR - Calculates file-size frequency-distribution.
+.SH SYNOPSIS
+\fBfishfood\fR [\fIOPTIONS\fR] [\fIFile-path\fR ...]
+.SH DESCRIPTION
+.PP
+Counts the number of the specified files which fall within each of a sequence of discrete size-intervals.
+.SH OPTIONS
+.TP
+\fB-s\fR \fIInt\fR, \fB--binSizeIncrement=\fR\fIInt\fR
+Defines the constant size-increase in the arithmetic sequence of bins into which the byte-sizes of files are categorised; defaulting to one standard-deviation.
+.TP
+\fB-r\fR \fIFloat\fR, \fB--binSizeRatio=\fR \fIFloat\fR
+Defines the constant size-ratio in the geometric sequence of bins into which the byte-sizes of files are categorised; an alternative to "\fBbinSizeIncrement\fR".
+.TP
+\fB-p\fR[\fIBool\fR], \fB--deriveProbabilityMassFunction\fR[\fB=\fR\fIBool\fR]
+Whether to derive the \fIProbability Mass Function\fR rather than the \fIFrequency-distribution\fR.
+.br
+The default value, in the absence of this option, is "\fBFalse\fR",
+but in the absence of only the boolean argument, "\fBTrue\fR" will be inferred.
+.TP
+\fB-d\fR \fIInt\fR, \fB--nDecimalDigits=\fR\fIInt\fR
+The precision to which fractional auxiliary data is displayed.
+.TP
+\fB--verbosity=\fR(\fBSilent\fR|\fBNormal\fR|\fBVerbose\fR|\fBDeafening\fR)
+Produces additional output where appropriate; i.e. file-names, file-size statistics, & column-headers.
+.SS "Generic Program-information"
+.TP
+\fB-v\fR, \fB--version\fR
+Outputs version-information & then exits.
+.TP
+\fB-?\fR, \fB--help\fR
+Displays help & then exits.
+.SS File-paths
+.TP
+If \fIFile-path\fR is a single hyphen-minus (\fB-\fR), then the list of file-paths will be read from standard-input. Only plain files are acceptable; no directories, symlinks, sockets, ...
+.SH EXIT-STATUS
+\fB0\fR on success, & >\fB0\fR if an error occurs.
+.SH EXAMPLES
+.SS Example 1
+To find the frequency-distribution in the size of any Matroska video-files in a file-system:
+.IP
+\fBfishfood --verbosity=Verbose $(find / -name '*.mkv' 2>/dev/null)\fR	#CAVEAT: for efficiency, one may want to be more precise with the path supplied to "\fBfind\fR".
+.nf
+Files=86, mean=394459250.942, standard-deviation=304129537.729
+  Bin-size Frequency
+========== =========
+         0        44
+ 304129538        29
+ 608259076         6
+ 912388614         4
+1216518152         2
+1520647690         1
+.fi
+.PP 
+The left-hand column defines an arithmetic sequence of bins, whilst the right-hand column defines the number of files from those specified which fall into each.
+The choice of the increment between each bin has defaulted to one standard-deviation.
+.br
+From this data one can conclude that there are 44 files whose size lies in the semi-closed interval [0, 1) standard-deviations,
+decaying monotonically to only one file whose size lies in the semi-closed interval [5, 6) standard-deviations.
+.SS Example 2
+One can alternatively specify the arithmetic increment between bin-sizes,
+& also derive the probability that a file-size lies in any specific bin.
+.IP
+.B fishfood --verbosity=Verbose --binSizeIncrement=100000000 --deriveProbabilityMassFunction $(find / -name '*.mkv' 2>/dev/null)
+.nf
+Files=86, mean=394459250.942, standard-deviation=304129537.729
+  Bin-size Probability
+========== ===========
+ 100000000 0.209
+ 200000000 0.302
+ 300000000 0.233
+ 400000000 0.035
+ 500000000 0.070
+ 600000000 0.023
+ 800000000 0.035
+ 900000000 0.035
+1000000000 0.012
+1100000000 0.012
+1200000000 0.012
+1400000000 0.012
+1600000000 0.012
+.fi
+.PP
+CAVEAT: the total probability may differ from "\fB1\fR", due to round-errors; see "\fBnDecimalDigits\fR".
+.SS Example 3
+One can alternatively define a geometric sequence of file-size bins,
+& also read the file-names from standard-input, to bypass any limit applied by the shell to the length of the command-line.
+.IP
+.B find /etc -type f -readable 2>/dev/null | fishfood --verbosity=Verbose --binSizeRatio=10 -
+.nf
+Files=1735, mean=13846.622, standard-deviation=74846.621
+  Bin-size Frequency
+========== =========
+         0         4	#Though "\fB0\fR" isn't a member of the requested geometric sequence, it's the integral value beneath all fractional values which are.
+         1         2
+        10       100
+       100       563
+      1000       794
+     10000       188
+    100000        83
+   1000000         1
+.fi
+.PP
+From this data one can conclude that there are 4 files whose size is zero, 2 files in the semi-closed interval [1, 10), 100 files in [10, 100), ...
+.IP
+.B find $HOME -name '*.png' -o -name '*.gif' -o -name '*.jp*g' | fishfood --verbosity=Verbose -r 2 -p -
+.nf
+Files=878, mean=78365.943, standard-deviation=297831.014
+  Bin-size Probability
+========== ===========
+        32 0.023
+        64 0.017
+       128 0.008
+       256 0.015
+       512 0.034
+      1024 0.046
+      2048 0.047
+      4096 0.096
+      8192 0.155
+     16384 0.179
+     32768 0.155
+     65536 0.157
+    131072 0.032
+    262144 0.017
+    524288 0.003
+   1048576 0.010
+   2097152 0.007
+.fi
+.PP
+When specifying an arithmetic sequence of bin-sizes, the lack of resolution amongst smaller files makes the distribution appear like the decaying exponential of a \fIgeometric distribution\fR,
+but by using a geometric sequence of bin-sizes, it can be seen more clearly to be a \fIlog-normal distribution\fR;
+see "A Large-Scale Study of File-System Contents" by John R. Douceur and William J. Bolosky.
+.SH AUTHOR
+Written by Dr. Alistair Ward.
+.SH BUGS
+.SS "REPORTING BUGS"
+Report bugs to <\fBfishfood@functionalley.eu\fR>.
+.SH COPYRIGHT
+Copyright \(co 2013-2015 Dr. Alistair Ward
+.PP
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+.PP
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+.PP
+You should have received a copy of the GNU General Public License along with this program. If not, see \fB<http://www.gnu.org/licenses/>\fR.
+.SH "SEE ALSO"
+.IP \(bu
+Home-page: \fBhttp://functionalley.eu\fR
+.IP \(bu
+.B http://hackage.haskell.org/package/fishfood
+.IP \(bu
+.B https://github.com/functionalley/FishFood
+.IP \(bu
+.B http://en.wikipedia.org/wiki/Interval_(mathematics)
+.IP \(bu
+.B http://en.wikipedia.org/wiki/Standard_deviation
+.IP \(bu
+.B http://en.wikipedia.org/wiki/Frequency_distribution
+.IP \(bu
+.B http://en.wikipedia.org/wiki/Geometric_distribution
+.IP \(bu
+.B http://en.wikipedia.org/wiki/Log-normal_distribution
+.IP \(bu
+.B http://en.wikipedia.org/wiki/Probability_mass_function
+.IP \(bu
+Source-documentation is generated by "\fBHaddock\fR", & is available in the distribution.
+.IP \(bu
+.B http://www.haskell.org/haddock/

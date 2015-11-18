@@ -1,0 +1,12 @@
+Package:	fishfood
+Version:	0.0.1.6-1
+Section:	utils
+Priority:	optional
+Architecture:	amd64
+Depends:	libc6
+Installed-size:	2082
+Maintainer:	Dr. Alistair Ward <fishfood@functionalley.eu>
+Provides:
+Homepage:	http://functionalley.eu
+Description:	Counts the number of files in a set of bins, each of which holds only those files which fall within a specific size-interval.
+
