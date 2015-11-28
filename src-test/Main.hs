@@ -24,7 +24,6 @@
 
 module Main(main) where
 
-import			Control.Arrow((***))
 import qualified	Control.Monad
 import qualified	FishFood.Test.Profiler	as Test.Profiler
 import qualified	System.Exit
@@ -33,12 +32,8 @@ import qualified	ToolShed.Test.QuickCheck.Result
 -- | Entry-point.
 main :: IO ()
 main	= mapM_ (
-	snd {-exit-status-} . (
-		putStrLn . (++ ":") *** (
-			>>= (`Control.Monad.unless` System.Exit.exitFailure) . all ToolShed.Test.QuickCheck.Result.isSuccessful
-		)
-	)
+	(`Control.Monad.unless` System.Exit.exitFailure) . all ToolShed.Test.QuickCheck.Result.isSuccessful =<<
  ) [
-	("Profiler",	Test.Profiler.results)
+	Test.Profiler.results
  ]
 
