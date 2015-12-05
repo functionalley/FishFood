@@ -1,5 +1,7 @@
 # **FishFood**
 
+[![Build Status](https://travis-ci.org/functionalley/FishFood.svg?branch=master)](https://travis-ci.org/functionalley/FishFood)
+
 This is "**FishFood**", an application which determines the distribution in sizes of the specified files.
 
 ## Installation
