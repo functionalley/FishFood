@@ -45,3 +45,4 @@
 * Amended to call "**error**" rather than "**Control.Monad.fail**", since the **String**-argument for the latter is discarded in **Monad**-implementations other than **IO**.
 * Uploaded to [GitHub](https://github.com/functionalley/FishFood.git).
 * Simplified file **src-test/Main.hs**.
+* Added **.travis.yml** to control testing by <https://docs.travis-ci.com>.
