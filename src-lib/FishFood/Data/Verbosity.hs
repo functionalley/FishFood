@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 {-
-	Copyright (C) 2013 Dr. Alistair Ward
+	Copyright (C) 2013-2015 Dr. Alistair Ward
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -26,11 +26,11 @@ module FishFood.Data.Verbosity(
 	range
 ) where
 
+import qualified	Data.Default
 import qualified	Distribution.Verbosity
-import qualified	ToolShed.Defaultable
 
-instance ToolShed.Defaultable.Defaultable Distribution.Verbosity.Verbosity	where
-	defaultValue	= Distribution.Verbosity.normal
+instance Data.Default.Default Distribution.Verbosity.Verbosity	where
+	def	= Distribution.Verbosity.normal
 
 -- | The constant complete range of values.
 range :: [Distribution.Verbosity.Verbosity]

@@ -1,5 +1,5 @@
 {-
-	Copyright (C) 2013 Dr. Alistair Ward
+	Copyright (C) 2013-2015 Dr. Alistair Ward
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -46,10 +46,10 @@ module FishFood.Data.CommandOptions(
 	setBinSizeRatio
 ) where
 
+import qualified	Data.Default
 import qualified	Data.Maybe
 import qualified	Distribution.Verbosity
 import qualified	FishFood.Data.File	as Data.File
-import qualified	ToolShed.Defaultable
 import qualified	ToolShed.SelfValidate
 
 -- | Either an arithmetic size-increase for which there's a default, or a geometric size-ratio.
@@ -63,8 +63,8 @@ data CommandOptions ratio	= MkCommandOptions {
 	getVerbosity				:: Distribution.Verbosity.Verbosity	-- ^ The threshold for ancillary information-output.
 } deriving Show
 
-instance ToolShed.Defaultable.Defaultable (CommandOptions ratio)	where
-	defaultValue	= MkCommandOptions {
+instance Data.Default.Default (CommandOptions ratio)	where
+	def = MkCommandOptions {
 		getBinSizeDelta				= Left Nothing,	-- Interpreted as one standard-deviation.
 		getDeriveProbabilityMassFunction	= False,
 		getNDecimalDigits			= 3,

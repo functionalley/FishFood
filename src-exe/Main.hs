@@ -31,6 +31,7 @@ module Main(main) where
 
 import qualified	Control.Monad
 import qualified	Control.Monad.Writer
+import qualified	Data.Default
 import qualified	Data.List
 import qualified	Data.Maybe
 import qualified	Data.Version
@@ -49,7 +50,6 @@ import qualified	System.Info
 import qualified	System.IO
 import qualified	System.IO.Error
 import qualified	ToolShed.Data.List
-import qualified	ToolShed.Defaultable
 import qualified	ToolShed.SelfValidate
 
 #if !MIN_VERSION_base(4,8,0)
@@ -94,7 +94,7 @@ main	= do
 
 	let
 		defaultCommandOptions :: CommandOptions
-		defaultCommandOptions	= ToolShed.Defaultable.defaultValue
+		defaultCommandOptions	= Data.Default.def
 
 		optDescrList :: [G.OptDescr CommandLineAction]
 		optDescrList	= [
@@ -142,7 +142,7 @@ main	= do
 
 	case G.getOpt G.RequireOrder optDescrList args of
 		(commandLineActions, nonOptions, [{-errors-}])	-> do
-			commandOptions	<- Data.List.foldl' (>>=) (return {-to IO-monad-} ToolShed.Defaultable.defaultValue) commandLineActions
+			commandOptions	<- Data.List.foldl' (>>=) (return {-to IO-monad-} Data.Default.def) commandLineActions
 
 			if not $ ToolShed.SelfValidate.isValid commandOptions
 				then error $ ToolShed.SelfValidate.getFirstError commandOptions
@@ -172,7 +172,7 @@ main	= do
 
 						(fileSizeDistribution, statistics)	<- Control.Monad.Writer.runWriter . Profiler.calculateFileSizeDistribution commandOptions <$> mapM Data.File.findSize (Data.List.nub filePaths)
 
-						Control.Monad.when (Data.CommandOptions.getVerbosity commandOptions > ToolShed.Defaultable.defaultValue) $ mapM_ (System.IO.hPutStrLn System.IO.stderr) statistics
+						Control.Monad.when (Data.CommandOptions.getVerbosity commandOptions > Data.Default.def) $ mapM_ (System.IO.hPutStrLn System.IO.stderr) statistics
 
 						putStrLn $ Profiler.formatFileSizeDistribution commandOptions fileSizeDistribution
 		(_, _, errors)	-> System.IO.Error.ioError . System.IO.Error.userError $ concatMap init {-chop-} errors

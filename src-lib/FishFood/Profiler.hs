@@ -1,5 +1,5 @@
 {-
-	Copyright (C) 2013 Dr. Alistair Ward
+	Copyright (C) 2013-2015 Dr. Alistair Ward
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -36,6 +36,7 @@ module FishFood.Profiler(
 
 import			Control.Arrow((&&&),(***))
 import qualified	Control.Monad.Writer
+import qualified	Data.Default
 import qualified	Data.List
 import qualified	Data.Map
 import qualified	Data.Maybe
@@ -43,7 +44,6 @@ import qualified	FishFood.Data.CommandOptions	as Data.CommandOptions
 import qualified	FishFood.Data.File		as Data.File
 import			FishFood.Data.Verbosity()
 import qualified	Text.Printf
-import qualified	ToolShed.Defaultable
 
 -- | Define a type to represent the fractional closed unit-interval.
 type Probability	= Double
@@ -123,7 +123,7 @@ formatFileSizeDistribution :: Data.CommandOptions.CommandOptions ratio -> FileSi
 formatFileSizeDistribution commandOptions	= Data.List.intercalate "\n" . map (
 	\(fileSize, value)	-> fileSize ++ " " ++ value
  ) . (
-	if Data.CommandOptions.getVerbosity commandOptions > ToolShed.Defaultable.defaultValue
+	if Data.CommandOptions.getVerbosity commandOptions > Data.Default.def
 		then (
 			[
 				(
