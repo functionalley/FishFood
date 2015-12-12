@@ -25,7 +25,7 @@
 module Main(main) where
 
 import qualified	Control.Monad
-import qualified	FishFood.Test.Profiler	as Test.Profiler
+import qualified	FishFood.Test.QuickCheck.Profiler	as Test.QuickCheck.Profiler
 import qualified	System.Exit
 import qualified	ToolShed.Test.QuickCheck.Result
 
@@ -34,6 +34,6 @@ main :: IO ()
 main	= mapM_ (
 	(`Control.Monad.unless` System.Exit.exitFailure) . all ToolShed.Test.QuickCheck.Result.isSuccessful =<<
  ) [
-	Test.Profiler.results
+	Test.QuickCheck.Profiler.results
  ]
 

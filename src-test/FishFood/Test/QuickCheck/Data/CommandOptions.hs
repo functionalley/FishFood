@@ -22,7 +22,7 @@
  [@DESCRIPTION@]	Implements 'Test.QuickCheck.Arbitrary' for 'Data.CommandOptions.CommandOptions'.
 -}
 
-module FishFood.Test.Data.CommandOptions(
+module FishFood.Test.QuickCheck.Data.CommandOptions(
 -- * Types
 -- ** Type-synonyms
 	CommandOptions
@@ -30,7 +30,7 @@ module FishFood.Test.Data.CommandOptions(
 
 import qualified	Test.QuickCheck
 import qualified	FishFood.Data.CommandOptions	as Data.CommandOptions
-import			FishFood.Test.Data.Verbosity()
+import			FishFood.Test.QuickCheck.Data.Verbosity()
 
 #if !MIN_VERSION_base(4,8,0)
 import	Control.Applicative((<$>), (<*>))

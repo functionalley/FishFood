@@ -20,7 +20,7 @@
  [@DESCRIPTION@]	Defines /QuickCheck/-properties for 'Profiler'.
 -}
 
-module FishFood.Test.Profiler(
+module FishFood.Test.QuickCheck.Profiler(
 -- * Constants
 	results
 ) where
@@ -28,10 +28,10 @@ module FishFood.Test.Profiler(
 import qualified	Control.Monad.Writer
 import qualified	Data.Either
 import qualified	Data.Set
-import qualified	FishFood.Data.CommandOptions		as Data.CommandOptions
-import qualified	FishFood.Data.File			as Data.File
-import qualified	FishFood.Profiler			as Profiler
-import qualified	FishFood.Test.Data.CommandOptions	as Test.Data.CommandOptions
+import qualified	FishFood.Data.CommandOptions			as Data.CommandOptions
+import qualified	FishFood.Data.File				as Data.File
+import qualified	FishFood.Profiler				as Profiler
+import qualified	FishFood.Test.QuickCheck.Data.CommandOptions	as Test.QuickCheck.Data.CommandOptions
 import qualified	Test.QuickCheck
 import			Test.QuickCheck((==>))
 import qualified	ToolShed.SelfValidate
@@ -39,7 +39,7 @@ import qualified	ToolShed.SelfValidate
 -- | The constant test-results for this data-type.
 results :: IO [Test.QuickCheck.Result]
 results	= mapM Test.QuickCheck.quickCheckResult [prop_calculateProbabilityMassFunction, prop_calculateFileSizeFrequencyDistribution, prop_attendance]	where
-	prop_calculateProbabilityMassFunction, prop_calculateFileSizeFrequencyDistribution, prop_attendance :: Test.Data.CommandOptions.CommandOptions -> [Data.File.FileSize] -> Test.QuickCheck.Property
+	prop_calculateProbabilityMassFunction, prop_calculateFileSizeFrequencyDistribution, prop_attendance :: Test.QuickCheck.Data.CommandOptions.CommandOptions -> [Data.File.FileSize] -> Test.QuickCheck.Property
 	prop_calculateProbabilityMassFunction commandOptions fileSizes	= not (null fileSizes) && ToolShed.SelfValidate.isValid commandOptions' ==> Test.QuickCheck.label "prop_calculateProbabilityMassFunction" . (<= recip 1000000) . (+ negate 1) . sum . Data.Either.rights {-probabilities-} . map Profiler.getValue . fst {-distribution-} . Control.Monad.Writer.runWriter . Profiler.calculateFileSizeDistribution commandOptions' $ map abs fileSizes	where
 		commandOptions'	= commandOptions { Data.CommandOptions.getDeriveProbabilityMassFunction	= True }
 
@@ -53,6 +53,6 @@ results	= mapM Test.QuickCheck.quickCheckResult [prop_calculateProbabilityMassFu
 	 ) . fst {-distribution-} . Control.Monad.Writer.runWriter $ Profiler.calculateFileSizeDistribution commandOptions' fileSizes'	where
 		fileSizes'	= map abs fileSizes
 
-		commandOptions' :: Test.Data.CommandOptions.CommandOptions
+		commandOptions' :: Test.QuickCheck.Data.CommandOptions.CommandOptions
 		commandOptions'	= Data.CommandOptions.setBinSizeIncrement 1 commandOptions
 

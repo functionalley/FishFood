@@ -105,7 +105,7 @@ Executable fishfood
         if flag(llvm)
             GHC-options:	-fllvm
 
-Test-Suite quickCheck
+Test-Suite test
     Default-language:	Haskell2010
     GHC-options:	-Wall -fno-warn-tabs
     Hs-source-dirs:	src-test
@@ -114,9 +114,9 @@ Test-Suite quickCheck
 
 -- Required for 'cabal sdist'.
     Other-modules:
-        FishFood.Test.Data.CommandOptions
-        FishFood.Test.Data.Verbosity
-        FishFood.Test.Profiler
+        FishFood.Test.QuickCheck.Data.CommandOptions
+        FishFood.Test.QuickCheck.Data.Verbosity
+        FishFood.Test.QuickCheck.Profiler
 
     Build-depends:
         base == 4.*,

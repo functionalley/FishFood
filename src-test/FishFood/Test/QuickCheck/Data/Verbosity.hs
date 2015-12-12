@@ -21,7 +21,7 @@
  [@DESCRIPTION@]	Implements 'Test.QuickCheck.Arbitrary' for 'Distribution.Verbosity.Verbosity'.
 -}
 
-module FishFood.Test.Data.Verbosity() where
+module FishFood.Test.QuickCheck.Data.Verbosity() where
 
 import qualified	Distribution.Verbosity
 import qualified	FishFood.Data.Verbosity	as Data.Verbosity
