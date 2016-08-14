@@ -39,7 +39,7 @@ module FishFood.Data.CommandOptions(
 		getVerbosity
 	),
 -- * Functions
--- ** Constructors
+-- ** Constructor
 	mkCommandOptions,
 -- ** Mutators
 	setBinSizeIncrement,
