@@ -14,7 +14,7 @@
 -- along with FishFood.  If not, see <http://www.gnu.org/licenses/>.
 
 Name:		fishfood
-Version:	0.0.1.6
+Version:	0.0.1.7
 Cabal-version:	>= 1.10
 Copyright:	(C) 2013-2015 Dr. Alistair Ward
 License:	GPL
@@ -77,8 +77,12 @@ Library
     else
         GHC-prof-options:	-auto-all -caf-all
 
-    if impl(ghc >= 7.0) && flag(llvm)
-        GHC-options:	-fllvm
+    if impl(ghc >= 7.0)
+        if flag(llvm)
+            GHC-options:	-fllvm
+
+        if impl(ghc >= 8.0)
+            GHC-options:	-Wredundant-constraints
 
 Executable fishfood
     Default-language:	Haskell2010
@@ -105,6 +109,9 @@ Executable fishfood
         if flag(llvm)
             GHC-options:	-fllvm
 
+        if impl(ghc >= 8.0)
+            GHC-options:	-Wredundant-constraints
+
 Test-Suite test
     Default-language:	Haskell2010
     GHC-options:	-Wall -fno-warn-tabs
@@ -127,3 +134,5 @@ Test-Suite test
         QuickCheck,
         toolshed >= 0.17
 
+    if impl(ghc >= 8.0)
+        GHC-options:	-Wredundant-constraints
