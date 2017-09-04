@@ -21,7 +21,7 @@
 
 Summary:	Calculates file-size frequency-distribution.
 Name:		fishfood
-Version:	0.0.1.7
+Version:	0.0.1.8
 Release:	1
 License:	GPLv3
 # From '/usr/share/doc/packages/rpm/GROUPS'.

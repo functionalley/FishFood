@@ -14,7 +14,7 @@
 -- along with FishFood.  If not, see <http://www.gnu.org/licenses/>.
 
 Name:		fishfood
-Version:	0.0.1.7
+Version:	0.0.1.8
 Cabal-version:	>= 1.10
 Copyright:	(C) 2013-2015 Dr. Alistair Ward
 License:	GPL
