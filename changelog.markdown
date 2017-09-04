@@ -50,3 +50,4 @@
 * Replaced use of module **ToolShed.Defaultable** with **Data.Default**.
 * Tested with **ghc-8.0.1**.
 ## 0.0.1.7
+* Removed dependency on **Distribution.Package.PackageName**
