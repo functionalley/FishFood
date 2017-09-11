@@ -54,3 +54,4 @@
 * Removed dependency on **Distribution.Package.PackageName**
 
 ## 0.0.1.8
+Replaced '+ negate' with 'subtract' in **FishFood.Test.QuickCheck.Profiler**.
