@@ -11,7 +11,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 %define package		%name-%version
 %define tarBall		%package.tar.gz
@@ -26,8 +26,8 @@ Release:	1
 License:	GPLv3
 # From '/usr/share/doc/packages/rpm/GROUPS'.
 Group:		Applications/File
-Source0:	http://functionalley.eu/Downloads/sdist/%tarBall
-URL:		http://functionalley.eu
+Source0:	https://functionalley.eu/Downloads/sdist/%tarBall
+URL:		https://functionalley.eu
 Prefix:		/usr
 BuildRequires:	haskell-platform
 
