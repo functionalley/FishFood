@@ -21,13 +21,13 @@
 
 Summary:	Calculates file-size frequency-distribution.
 Name:		fishfood
-Version:	0.0.1.8
+Version:	0.0.1.9
 Release:	1
 License:	GPLv3
 # From '/usr/share/doc/packages/rpm/GROUPS'.
 Group:		Applications/File
-Source0:	https://functionalley.eu/Downloads/sdist/%tarBall
-URL:		https://functionalley.eu
+Source0:	https://functionalley.com/Downloads/sdist/%tarBall
+URL:		https://functionalley.com
 Prefix:		/usr
 BuildRequires:	haskell-platform
 
@@ -62,6 +62,6 @@ rm -rf -- '%_builddir/%package/' '%buildroot/'	# Only the '.rpm' is required.
 %attr(0644, root, root)	%doc	%_mandir/man1/%name.1.gz
 
 %changelog
-* Tue Jul 16 2013	Alistair Ward	<fishfood@functionalley.eu>	0.0.0.2-1
+* Tue Jul 16 2013	Alistair Ward	<fishfood@functionalley.com>	0.0.0.2-1
 First cut.
 

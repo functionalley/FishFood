@@ -1,4 +1,4 @@
-# 2013-07-16 Dr. Alistair Ward <fishfood@functionalley.eu>
+# 2013-07-16 Dr. Alistair Ward <fishfood@functionalley.com>
 
 ## 0.0.0.1
 * First version of the package.
@@ -55,3 +55,6 @@
 
 ## 0.0.1.8
 Replaced '+ negate' with 'subtract' in **FishFood.Test.QuickCheck.Profiler**.
+
+## 0.0.1.9
+Changed references to author's domain-name.
