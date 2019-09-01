@@ -90,6 +90,9 @@ Executable fishfood
     Hs-source-dirs:	src-exe
     Main-is:		Main.hs
 
+    Other-modules:
+        Paths_fishfood
+
     Build-depends:
         base == 4.*,
         Cabal >= 1.10,
