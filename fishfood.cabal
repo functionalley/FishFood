@@ -14,7 +14,7 @@
 -- along with FishFood.  If not, see <http://www.gnu.org/licenses/>.
 
 Name:		fishfood
-Version:	0.0.1.9
+Version:	0.0.1.10
 Cabal-version:	>= 1.10
 Copyright:	(C) 2013-2015 Dr. Alistair Ward
 License:	GPL
@@ -25,7 +25,7 @@ Synopsis:	Calculates file-size frequency-distribution.
 Build-type:	Simple
 Description:	Counts the number of files in a set of bins, each of which holds only those files which fall within a specific size-interval.
 Category:	Utils
-Tested-with:	GHC == 7.4, GHC == 7.6, GHC == 7.8, GHC == 7.10, GHC == 8.0, GHC == 8.2, GHC == 8.4, GHC == 8.6
+Tested-with:	GHC == 7.4, GHC == 7.6, GHC == 7.8, GHC == 7.10, GHC == 8.0, GHC == 8.2, GHC == 8.4, GHC == 8.6, GHC == 8.8, GHC == 8.10
 Homepage:	https://functionalley.com
 Maintainer:	mailto:fishfood@functionalley.com
 Bug-reports:	mailto:fishfood@functionalley.com

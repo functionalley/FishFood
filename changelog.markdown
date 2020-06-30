@@ -58,3 +58,6 @@ Replaced '+ negate' with 'subtract' in **FishFood.Test.QuickCheck.Profiler**.
 
 ## 0.0.1.9
 Changed references to author's domain-name.
+
+## 0.0.1.10
+Updated list of test-compilers.
