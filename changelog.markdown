@@ -61,3 +61,7 @@ Changed references to author's domain-name.
 
 ## 0.0.1.10
 Updated list of test-compilers.
+
+## 0.0.1.11
+Replaced module **Distribution.Verbosity** with **FishFood.Data.Verbosity**.
+
