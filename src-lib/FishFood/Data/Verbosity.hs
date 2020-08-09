@@ -18,20 +18,36 @@
 {- |
  [@AUTHOR@]	Dr. Alistair Ward
 
- [@DESCRIPTION@]	Instance-definitions for 'Distribution.Verbosity.Verbosity'.
+ [@DESCRIPTION@]
+	The levels of program-output.
+	N.B.: the data-type is coincidentally similar to 'Distribution.Verbosity.Internal.VerbosityLevel'.
 -}
 
 module FishFood.Data.Verbosity(
+-- * Types
+-- ** Data-types
+	Verbosity(),
 -- * Constants
 	range
 ) where
 
 import qualified	Data.Default
-import qualified	Distribution.Verbosity
 
-instance Data.Default.Default Distribution.Verbosity.Verbosity	where
-	def	= Distribution.Verbosity.normal
+-- | Define the levels of program-output.
+data Verbosity
+	= Silent
+	| Normal
+	| Verbose
+	| Deafening
+	deriving (Enum, Eq, Ord, Read, Show)
+
+instance Data.Default.Default Verbosity	where
+	def	= Normal
+
+instance Bounded Verbosity where
+	minBound	= Silent
+	maxBound	= Deafening
 
 -- | The constant complete range of values.
-range :: [Distribution.Verbosity.Verbosity]
+range :: [Verbosity]
 range	= [minBound .. maxBound]

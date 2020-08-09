@@ -18,14 +18,13 @@
 {- |
  [@AUTHOR@]	Dr. Alistair Ward
 
- [@DESCRIPTION@]	Implements 'Test.QuickCheck.Arbitrary' for 'Distribution.Verbosity.Verbosity'.
+ [@DESCRIPTION@]	Implements 'Test.QuickCheck.Arbitrary'.
 -}
 
 module FishFood.Test.QuickCheck.Data.Verbosity() where
 
-import qualified	Distribution.Verbosity
 import qualified	FishFood.Data.Verbosity	as Data.Verbosity
 import qualified	Test.QuickCheck
 
-instance Test.QuickCheck.Arbitrary Distribution.Verbosity.Verbosity	where
+instance Test.QuickCheck.Arbitrary Data.Verbosity.Verbosity	where
 	arbitrary	= Test.QuickCheck.elements Data.Verbosity.range

@@ -48,8 +48,8 @@ module FishFood.Data.CommandOptions(
 
 import qualified	Data.Default
 import qualified	Data.Maybe
-import qualified	Distribution.Verbosity
 import qualified	FishFood.Data.File	as Data.File
+import qualified	FishFood.Data.Verbosity	as Data.Verbosity
 import qualified	ToolShed.SelfValidate
 
 -- | Either an arithmetic size-increase for which there's a default, or a geometric size-ratio.
@@ -57,10 +57,10 @@ type BinSizeDelta ratio	= Either (Maybe Data.File.FileSize) ratio
 
 -- | Declares a record to contain command-line options.
 data CommandOptions ratio	= MkCommandOptions {
-	getBinSizeDelta				:: BinSizeDelta ratio,			-- ^ Either the arithmetic size-increase (defaulting to one standard-deviation), or the geometric size-ratio, of the sequence of bins into which files are categorized.
-	getDeriveProbabilityMassFunction	:: Bool,				-- ^ Whether to derive the "Probability mass function" rather than the "Frequency-distribution".
-	getNDecimalDigits			:: Int,					-- ^ The precision to which fractional data is displayed.
-	getVerbosity				:: Distribution.Verbosity.Verbosity	-- ^ The threshold for ancillary information-output.
+	getBinSizeDelta				:: BinSizeDelta ratio,		-- ^ Either the arithmetic size-increase (defaulting to one standard-deviation), or the geometric size-ratio, of the sequence of bins into which files are categorized.
+	getDeriveProbabilityMassFunction	:: Bool,			-- ^ Whether to derive the "Probability mass function" rather than the "Frequency-distribution".
+	getNDecimalDigits			:: Int,				-- ^ The precision to which fractional data is displayed.
+	getVerbosity				:: Data.Verbosity.Verbosity	-- ^ The threshold for ancillary information-output.
 } deriving Show
 
 instance Data.Default.Default (CommandOptions ratio)	where
@@ -68,7 +68,7 @@ instance Data.Default.Default (CommandOptions ratio)	where
 		getBinSizeDelta				= Left Nothing,	-- Interpreted as one standard-deviation.
 		getDeriveProbabilityMassFunction	= False,
 		getNDecimalDigits			= 3,
-		getVerbosity				= Distribution.Verbosity.normal
+		getVerbosity				= Data.Default.def
 	}
 
 instance (Num ratio, Ord ratio, Show ratio) => ToolShed.SelfValidate.SelfValidator (CommandOptions ratio)	where
@@ -97,7 +97,7 @@ instance (Num ratio, Ord ratio, Show ratio) => ToolShed.SelfValidate.SelfValidat
 	 ]
 
 -- | Smart constructor.
-mkCommandOptions :: (Num ratio, Ord ratio, Show ratio) => BinSizeDelta ratio -> Bool -> Int -> Distribution.Verbosity.Verbosity -> CommandOptions ratio
+mkCommandOptions :: (Num ratio, Ord ratio, Show ratio) => BinSizeDelta ratio -> Bool -> Int -> Data.Verbosity.Verbosity -> CommandOptions ratio
 mkCommandOptions binSizeDelta deriveProbabilityMassFunction nDecimalDigits verbosity
 	| ToolShed.SelfValidate.isValid commandOptions	= commandOptions
 	| otherwise					= error $ "FishFood.Data.CommandOptions.mkCommandOptions:\t" ++ ToolShed.SelfValidate.getFirstError commandOptions
